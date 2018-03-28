@@ -1,0 +1,14 @@
+[mysqld]
+log_output=TABLE,FILE
+general_log=ON
+general_log_file=/var/log/mysql/general.log
+
+slow_query_log=ON
+slow_query_log_file=/var/log/mysql/slow_query.log
+long_query_time=2
+log_queries_not_using_indexes=ON
+log_throttle_queries_not_using_indexes=1
+log_slow_admin_statements=ON
+
+log_error=/var/log/mysql/error.log
+log_error_verbosity=3

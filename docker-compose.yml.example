@@ -1,0 +1,19 @@
+version: '2.0'
+services:
+  ai:
+    build:
+      context: docker-findwho
+    ports:
+      - "90:80"
+    links:
+      - db
+    volumes:
+      - /var/www/html/findwho:/var/www/html/findwho
+    tty: true
+  db:
+    image: mysql
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+volumes:
+  datastore: {}
