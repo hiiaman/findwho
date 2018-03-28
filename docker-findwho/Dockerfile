@@ -36,5 +36,9 @@ RUN a2enmod headers
 RUN mkdir /var/www/html/findwho
 WORKDIR /var/www/html/findwho
 EXPOSE 80
-
+ADD startup.sh /usr/bin/startup.sh
+RUN chmod +x /usr/bin/startup.sh
 ADD findwho.conf /etc/apache2/sites-enabled/000-default.conf
+
+# Execute the containers startup script which will start many processes/services
+CMD ["/bin/bash", "/usr/bin/startup.sh"]
