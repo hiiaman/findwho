@@ -12,26 +12,16 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import React, { Component } from 'react';
+import React from 'react';
 import LayoutMain from './components/layouts/LayoutMain';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { BrowserRouter, Router} from 'react-router-dom';
-import { Switch, Route } from 'react-router-dom'
-import DashBoard from './components/dashboard/DashBoard';
-import UserIndex from './components/users/Index';
-
 
 injectTapEventPlugin();
+
 ReactDOM.render(
     <MuiThemeProvider>
         <LayoutMain>
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/" component={DashBoard}/>
-                    <Route exact path="/users" component={UserIndex}/>
-                </Switch>
-            </BrowserRouter>
         </LayoutMain>
     </MuiThemeProvider>,
     document.getElementById('app')

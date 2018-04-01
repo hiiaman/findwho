@@ -2,7 +2,7 @@ import React, {Component}  from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Header extends  Component {
     constructor(props) {
@@ -33,14 +33,12 @@ class Header extends  Component {
                 <Drawer
                     docked={false}
                     open={this.state.isToggleOn}
-                    onRequestChange={(isToggleOn) => this.setState({isToggleOn: !this.state.isToggleOn})}
+                    onRequestChange={() => this.setState({isToggleOn: !this.state.isToggleOn})}
                 >
-                    <Router>
-                        <div>
-                            <MenuItem onClick={this.handleClose} containerElement={<Link to="/" />}>Home</MenuItem>
-                            <MenuItem onClick={this.handleClose} containerElement={<Link to="/users" />}>User</MenuItem>
-                        </div>
-                    </Router>
+                    <div>
+                        <MenuItem onClick={this.handleClose} containerElement={<Link to="/" />}>Home</MenuItem>
+                        <MenuItem onClick={this.handleClose} containerElement={<Link to="/users" />}>User</MenuItem>
+                    </div>
                 </Drawer>
             </div>
         );
