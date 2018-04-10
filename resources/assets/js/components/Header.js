@@ -35,6 +35,7 @@ class Header extends  Component {
                     open={this.state.isToggleOn}
                     onRequestChange={() => this.setState({isToggleOn: !this.state.isToggleOn})}
                 >
+                    <AppBar title={"Find Who"} onLeftIconButtonClick={this.handleClose} />
                     <div>
                         <MenuItem onClick={this.handleClose} containerElement={<Link to="/" />}>Home</MenuItem>
                         <MenuItem onClick={this.handleClose} containerElement={<Link to="/users" />}>User</MenuItem>

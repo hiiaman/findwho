@@ -1,30 +1,35 @@
 import React, {Component} from 'react'
 import Header from '../Header'
 import Footer from '../Footer'
-import UserIndex from "../users";
+import UserIndex from "../users/Index";
 import DashBoard from "../dashboard/DashBoard";
 import NotFound from "../errors/NotFound";
-import { Switch, HashRouter as Router, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AuthService from "../auth/AuthService";
 
 class LayoutMain extends  Component {
+    constructor(){
+        super();
+        this.Auth = new AuthService();
+    }
+
   render(){
-      return (
-          <div >
-            <Router>
+        return (
+            <MuiThemeProvider>
                 <div>
                     <Header/>
                     <div className="container">
                         <Switch>
                             <Route exact path="/" component={DashBoard} />
                             <Route path="/users" component={UserIndex} />
-                            <Route component={NotFound}/>
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <Footer/>
                 </div>
-            </Router>
-          </div>
-      )
+            </MuiThemeProvider>
+        )
   }
 }
 export default LayoutMain;

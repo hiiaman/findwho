@@ -12,17 +12,37 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import React from 'react';
+import React, {Component} from 'react';
 import LayoutMain from './components/layouts/LayoutMain';
 import ReactDOM from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { HashRouter as Router, Route, Redirect,Switch } from "react-router-dom";
+import Login from "./components/auth/Login";
+import AuthService from "./components/auth/AuthService";
 
 injectTapEventPlugin();
 
-ReactDOM.render(
-    <MuiThemeProvider>
-        <LayoutMain>
-        </LayoutMain>
-    </MuiThemeProvider>,
-    document.getElementById('app')
-);
+class App extends Component {
+    constructor (props){
+        super(props);
+        this.Auth = new AuthService();
+    }
+
+    render() {
+        if (this.Auth.loggedIn()) {
+            return (
+                <Router>
+                    <div>
+                        <div>
+                            <LayoutMain>
+                            </LayoutMain>
+                        </div>
+                    </div>
+                </Router>
+            )
+        } else {
+            return  <Router><Switch><Route path="/login" component={Login} replace /><Redirect to={"/login"} /></Switch></Router>;
+        }
+    }
+}
+
+ReactDOM.render(<App />,document.getElementById('app'));
