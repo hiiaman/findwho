@@ -23,7 +23,6 @@ export default class AuthService {
             method: 'POST',
             body: JSON.stringify(dataLogin)
         }).then(res => {
-            this.setToken(res.access_token); // Setting the token in localStorage
             return Promise.resolve(res);
         })
     }
@@ -50,17 +49,17 @@ export default class AuthService {
 
     setToken(idToken) {
         // Saves user token to localStorage
-        localStorage.setItem('id_token', idToken)
+        localStorage.setItem('UUID', idToken)
     }
 
     getToken() {
         // Retrieves the user token from localStorage
-        return localStorage.getItem('id_token')
+        return localStorage.getItem('UUID')
     }
 
     logout() {
         // Clear user token and profile data from localStorage
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('UUID');
     }
 
     getProfile() {
@@ -74,7 +73,7 @@ export default class AuthService {
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        }
+        };
 
         // Setting Authorization header
         // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
@@ -91,13 +90,14 @@ export default class AuthService {
     }
 
     _checkStatus(response) {
+        return response;
         // raises an error in case response status is not a success
-        if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-            return response
-        } else {
-            var error = new Error(response.statusText);
-            error.response = response;
-            throw error
-        }
+        // if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
+        //     return response
+        // } else {
+        //     var error = new Error(response.statusText);
+        //     error.response = response;
+        //     throw error
+        // }
     }
 }

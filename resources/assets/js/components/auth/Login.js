@@ -45,12 +45,26 @@ class Login extends  Component {
         this.Auth = new AuthService();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            errorUsername: "",
+            errorPassword: "",
+        }
     };
 
     handleSubmit (e) {
         e.preventDefault();
         this.Auth.login(this.state.email, this.state.password).then(res =>{
-            location.reload();
+            if(typeof res.errors !== "undefined") {
+                this.setState({
+                    errorUsername: res.errors.username['0'],
+                    errorPassword: res.errors.password['0'],
+                });
+            } else {
+                if (typeof res.access_token !== "undefined") {
+                    this.Auth.setToken(res.access_token);
+                    window.location.replace("/");
+                }
+            }
         })
         .catch(err =>{
             alert(err);
@@ -93,7 +107,7 @@ class Login extends  Component {
                                 hintText="example@gmail.com"
                                 floatingLabelText="Email"
                                 type="text"
-                                errorText=""
+                                errorText={this.state.errorUsername}
                                 inputStyle={styles.contentAccount}
                                 onChange={this.handleChange}
                                 name="email"
@@ -113,7 +127,7 @@ class Login extends  Component {
                                 hintText="Password"
                                 floatingLabelText="Password"
                                 type="password"
-                                errorText=""
+                                errorText={this.state.errorPassword}
                                 inputStyle={styles.contentInput}
                                 onChange={this.handleChange}
                                 name="password"
