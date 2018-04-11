@@ -15,5 +15,5 @@
   docker-composer up -d<br/>
   docker exec -it {findwho_findwho_1} /bin/bash ( {findwho_findwho_1} docker-composer ps view name container ).<br/>
   npm run watch<br/>
-5. Test type url: localhost:90 or localhost:{port}.
+5. Test type url: localhost:90 or localhost:{port}.<br/>
 6. Lest's coding.
