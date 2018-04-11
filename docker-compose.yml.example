@@ -14,6 +14,8 @@ services:
     image: mysql
     restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: root
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_ROOT_USER: homestead
+        MYSQL_DATABASE: homestead
 volumes:
   datastore: {}

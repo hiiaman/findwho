@@ -45,9 +45,11 @@ class Login extends  Component {
         this.Auth = new AuthService();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCheck  = this.handleCheck.bind(this);
         this.state = {
             errorUsername: "",
             errorPassword: "",
+            hiddenPassword: "password",
         }
     };
 
@@ -77,6 +79,23 @@ class Login extends  Component {
                 [e.target.name]: e.target.value
             }
         )
+    }
+
+    handleCheck(e) {
+        if (this.state.hiddenPassword === "password") {
+            this.setState(
+                {
+                    hiddenPassword: "text"
+                }
+            )
+        } else {
+            this.setState(
+                {
+                    hiddenPassword: "password"
+                }
+            )
+        }
+
     }
 
     render() {
@@ -122,11 +141,12 @@ class Login extends  Component {
                                 style={styles.checkbox}
                                 checkedIcon={<Visibility />}
                                 uncheckedIcon={<VisibilityOff />}
+                                onCheck={this.handleCheck}
                             />
                             <TextField
                                 hintText="Password"
                                 floatingLabelText="Password"
-                                type="password"
+                                type={this.state.hiddenPassword}
                                 errorText={this.state.errorPassword}
                                 inputStyle={styles.contentInput}
                                 onChange={this.handleChange}

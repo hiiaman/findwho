@@ -76213,9 +76213,11 @@ var Login = function (_Component) {
         _this.Auth = new __WEBPACK_IMPORTED_MODULE_4__AuthService__["a" /* default */]();
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleCheck = _this.handleCheck.bind(_this);
         _this.state = {
             errorUsername: "",
-            errorPassword: ""
+            errorPassword: "",
+            hiddenPassword: "password"
         };
         return _this;
     }
@@ -76246,6 +76248,19 @@ var Login = function (_Component) {
         key: 'handleChange',
         value: function handleChange(e) {
             this.setState(_defineProperty({}, e.target.name, e.target.value));
+        }
+    }, {
+        key: 'handleCheck',
+        value: function handleCheck(e) {
+            if (this.state.hiddenPassword === "password") {
+                this.setState({
+                    hiddenPassword: "text"
+                });
+            } else {
+                this.setState({
+                    hiddenPassword: "password"
+                });
+            }
         }
     }, {
         key: 'render',
@@ -76297,12 +76312,13 @@ var Login = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_material_ui_Checkbox___default.a, {
                                 style: styles.checkbox,
                                 checkedIcon: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_material_ui_svg_icons_action_visibility___default.a, null),
-                                uncheckedIcon: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_material_ui_svg_icons_action_visibility_off___default.a, null)
+                                uncheckedIcon: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_material_ui_svg_icons_action_visibility_off___default.a, null),
+                                onCheck: this.handleCheck
                             }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_material_ui_TextField___default.a, {
                                 hintText: 'Password',
                                 floatingLabelText: 'Password',
-                                type: 'password',
+                                type: this.state.hiddenPassword,
                                 errorText: this.state.errorPassword,
                                 inputStyle: styles.contentInput,
                                 onChange: this.handleChange,
