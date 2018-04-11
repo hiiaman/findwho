@@ -13,7 +13,8 @@
   cd {/path/source-code/}<br/>
   docker-composer build<br/>
   docker-composer up -d<br/>
-  docker exec -it {findwho_findwho_1} /bin/bash ( {findwho_findwho_1} docker-composer ps view name container ).<br/>
+  docker exec -it {findwho_findwho_1} /bin/bash ( {findwho_findwho_1} docker-composer ps view name container )<br/>
+  composer install<br/>
   npm run watch<br/>
 5. Test type url: localhost:90 or localhost:{port}.<br/>
 6. Lest's coding.
