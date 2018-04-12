@@ -8,6 +8,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
+import axios from "axios/index";
 const styles = {
     block: {
         maxWidth: 250,
@@ -55,22 +56,22 @@ class Login extends  Component {
 
     handleSubmit (e) {
         e.preventDefault();
-        this.Auth.login(this.state.email, this.state.password).then(res =>{
-            if(typeof res.errors !== "undefined") {
-                this.setState({
-                    errorUsername: res.errors.username['0'],
-                    errorPassword: res.errors.password['0'],
-                });
-            } else {
-                if (typeof res.access_token !== "undefined") {
-                    this.Auth.setToken(res.access_token);
-                    window.location.replace("/");
+        axios.post(`http://localhost:90/api/login/1`, {
+            username : this.state.email,
+            password : this.state.password,
+        }).then(res=> {
+            this.Auth.setToken(res.data.access_token);
+            window.location.replace("/");
+        }).catch(err=>{
+                if(err.response.status == 422) {
+                    this.setState({
+                        errorUsername: err.response.data.errors.username['0'],
+                        errorPassword: err.response.data.errors.password['0'],
+                    })
+                } else {
+                    alert(err.response.statusText);
                 }
-            }
-        })
-        .catch(err =>{
-            alert(err);
-        });
+            })
     }
 
     handleChange(e) {

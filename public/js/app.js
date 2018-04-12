@@ -4428,8 +4428,6 @@ module.exports = exports['default'];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jwt_decode__ = __webpack_require__(326);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jwt_decode___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jwt_decode__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4442,32 +4440,10 @@ var AuthService = function () {
         _classCallCheck(this, AuthService);
 
         this.domain = domain || 'http://localhost:90'; // API server domain
-        this.fetch = this.fetch.bind(this); // React binding stuff
-        this.login = this.login.bind(this);
         this.getProfile = this.getProfile.bind(this);
     }
 
     _createClass(AuthService, [{
-        key: 'login',
-        value: function login(email, password) {
-            var dataLogin = {
-                "username": email,
-                "password": password,
-                "grant_type": "password",
-                "client_id": 3,
-                "client_secret": "zbmqKG5nNX72KrZRz0Zabsis6rr3Q8N5ZcnCGRwB",
-                "scope": ""
-            };
-
-            // Get a token from api server using the fetch api
-            return this.fetch(this.domain + '/api/login', {
-                method: 'POST',
-                body: JSON.stringify(dataLogin)
-            }).then(function (res) {
-                return Promise.resolve(res);
-            });
-        }
-    }, {
         key: 'loggedIn',
         value: function loggedIn() {
             // Checks if there is a saved token and it's still valid
@@ -4510,50 +4486,6 @@ var AuthService = function () {
         value: function getProfile() {
             // Using jwt-decode npm package to decode the token
             return __WEBPACK_IMPORTED_MODULE_0_jwt_decode___default()(this.getToken());
-        }
-    }, {
-        key: 'fetch',
-        value: function (_fetch) {
-            function fetch(_x, _x2) {
-                return _fetch.apply(this, arguments);
-            }
-
-            fetch.toString = function () {
-                return _fetch.toString();
-            };
-
-            return fetch;
-        }(function (url, options) {
-            // performs api calls sending the required authentication headers
-            var headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            };
-
-            // Setting Authorization header
-            // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-            if (this.loggedIn()) {
-                headers['Authorization'] = 'Bearer ' + this.getToken();
-            }
-
-            return fetch(url, _extends({
-                headers: headers
-            }, options)).then(this._checkStatus).then(function (response) {
-                return response.json();
-            });
-        })
-    }, {
-        key: '_checkStatus',
-        value: function _checkStatus(response) {
-            return response;
-            // raises an error in case response status is not a success
-            // if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-            //     return response
-            // } else {
-            //     var error = new Error(response.statusText);
-            //     error.response = response;
-            //     throw error
-            // }
         }
     }]);
 
@@ -76151,6 +76083,8 @@ module.exports = typeof window !== 'undefined' && window.atob && window.atob.bin
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_material_ui_svg_icons_action_visibility_off___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_material_ui_svg_icons_action_visibility_off__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_material_ui_svg_icons_action_account_circle__ = __webpack_require__(348);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_material_ui_svg_icons_action_account_circle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_material_ui_svg_icons_action_account_circle__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_axios_index__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_axios_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_axios_index__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -76160,6 +76094,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -76228,20 +76163,21 @@ var Login = function (_Component) {
             var _this2 = this;
 
             e.preventDefault();
-            this.Auth.login(this.state.email, this.state.password).then(function (res) {
-                if (typeof res.errors !== "undefined") {
+            __WEBPACK_IMPORTED_MODULE_10_axios_index___default.a.post('http://localhost:90/api/login/1', {
+                username: this.state.email,
+                password: this.state.password
+            }).then(function (res) {
+                _this2.Auth.setToken(res.data.access_token);
+                window.location.replace("/");
+            }).catch(function (err) {
+                if (err.response.status == 422) {
                     _this2.setState({
-                        errorUsername: res.errors.username['0'],
-                        errorPassword: res.errors.password['0']
+                        errorUsername: err.response.data.errors.username['0'],
+                        errorPassword: err.response.data.errors.password['0']
                     });
                 } else {
-                    if (typeof res.access_token !== "undefined") {
-                        _this2.Auth.setToken(res.access_token);
-                        window.location.replace("/");
-                    }
+                    alert(err.response.statusText);
                 }
-            }).catch(function (err) {
-                alert(err);
             });
         }
     }, {
