@@ -8,7 +8,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
-import axios from "axios/index";
+import ApiService from "../Services/ApiService";
 const styles = {
     block: {
         maxWidth: 250,
@@ -44,6 +44,7 @@ class Login extends  Component {
     constructor(props) {
         super(props);
         this.Auth = new AuthService();
+        this.ApiService = new ApiService();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCheck  = this.handleCheck.bind(this);
@@ -56,22 +57,23 @@ class Login extends  Component {
 
     handleSubmit (e) {
         e.preventDefault();
-        axios.post(`http://localhost:90/api/login/1`, {
+        const dataLogin = {
             username : this.state.email,
             password : this.state.password,
-        }).then(res=> {
-            this.Auth.setToken(res.data.access_token);
-            window.location.replace("/");
-        }).catch(err=>{
-                if(err.response.status == 422) {
-                    this.setState({
-                        errorUsername: err.response.data.errors.username['0'],
-                        errorPassword: err.response.data.errors.password['0'],
-                    })
-                } else {
-                    alert(err.response.statusText);
-                }
-            })
+        };
+        this.ApiService.coreApi("post", "login", dataLogin).then((response) => {
+            if(response.status == 422) {
+                this.setState({
+                    errorUsername: response.data.errors.username['0'],
+                    errorPassword: response.data.errors.password['0'],
+                });
+            } else {
+                this.Auth.setToken(response.data.access_token);
+                window.location.replace("/");
+            }
+        }).catch((error) => {
+            alert(error.response.statusText)
+        });
     }
 
     handleChange(e) {

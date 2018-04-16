@@ -35,7 +35,7 @@ class LoginController extends Controller
                 ]
             ];
 
-            return response(json_encode(['errors' => $errors]), 400);
+            return response(json_encode(['errors' => $errors]), 422);
         }
 
         return response(json_encode(['access_token' => $token]), 200);
