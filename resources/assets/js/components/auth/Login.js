@@ -62,17 +62,17 @@ class Login extends  Component {
             password : this.state.password,
         };
         this.ApiService.coreApi("post", "login", dataLogin).then((response) => {
-            if(response.status == 422) {
+            this.Auth.setToken(response.data.access_token);
+            window.location.replace("/");
+        }).catch((error) => {
+            if(error.status == 422) {
                 this.setState({
-                    errorUsername: response.data.errors.username['0'],
-                    errorPassword: response.data.errors.password['0'],
+                    errorUsername: error.data.errors.username['0'],
+                    errorPassword: error.data.errors.password['0'],
                 });
             } else {
-                this.Auth.setToken(response.data.access_token);
-                window.location.replace("/");
+                alert(error.response.statusText)
             }
-        }).catch((error) => {
-            alert(error.response.statusText)
         });
     }
 

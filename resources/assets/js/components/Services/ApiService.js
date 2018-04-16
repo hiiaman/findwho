@@ -23,7 +23,7 @@ export default class ApiService {
                 resolve(response);
             }).catch(function(error) {
                 if(error.response.status == 422) {
-                    resolve(error.response);
+                    reject(error.response);
                 } else {
                     reject(error);
                 }

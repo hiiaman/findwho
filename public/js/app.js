@@ -76167,17 +76167,17 @@ var Login = function (_Component) {
                 password: this.state.password
             };
             this.ApiService.coreApi("post", "login", dataLogin).then(function (response) {
-                if (response.status == 422) {
+                _this2.Auth.setToken(response.data.access_token);
+                window.location.replace("/");
+            }).catch(function (error) {
+                if (error.status == 422) {
                     _this2.setState({
-                        errorUsername: response.data.errors.username['0'],
-                        errorPassword: response.data.errors.password['0']
+                        errorUsername: error.data.errors.username['0'],
+                        errorPassword: error.data.errors.password['0']
                     });
                 } else {
-                    _this2.Auth.setToken(response.data.access_token);
-                    window.location.replace("/");
+                    alert(error.response.statusText);
                 }
-            }).catch(function (error) {
-                alert(error.response.statusText);
             });
         }
     }, {
@@ -79639,7 +79639,7 @@ var ApiService = function () {
                     resolve(response);
                 }).catch(function (error) {
                     if (error.response.status == 422) {
-                        resolve(error.response);
+                        reject(error.response);
                     } else {
                         reject(error);
                     }
