@@ -35,7 +35,7 @@ const styles = {
     },
     widthLogin : {
         width: '17%',
-        minWidth: '270px',
+        minWidth: '300px',
         maxWidth: '17%',
     }
 };

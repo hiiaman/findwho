@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 return [
 
     /*
@@ -30,9 +31,15 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_APP_ID'),
+        'client_secret' => env('FACEBOOK_APP_SECRET'),
+        'redirect' => env('FACEBOOK_APP_CALLBACK_URL')
+    ]
 
 ];
