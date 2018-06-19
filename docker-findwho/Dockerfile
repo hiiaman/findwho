@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER Nguyen Truong An <mr.nguyentruongan@gmail.com>
-
+USER root
 RUN apt-get update && apt-get -y install \
     language-pack-en-base \
     software-properties-common
@@ -33,9 +33,11 @@ RUN apt-get -y install \
     nodejs
 RUN a2enmod rewrite
 RUN a2enmod headers
+RUN npm install -g laravel-echo-server
+RUN laravel-echo-server init
 RUN mkdir /var/www/html/findwho
 WORKDIR /var/www/html/findwho
-EXPOSE 80
+EXPOSE 80 6001
 ADD startup.sh /usr/bin/startup.sh
 RUN chmod +x /usr/bin/startup.sh
 ADD findwho.conf /etc/apache2/sites-enabled/000-default.conf
