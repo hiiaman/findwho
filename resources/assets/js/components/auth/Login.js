@@ -35,6 +35,7 @@ const styles = {
     },
     widthLogin : {
         width: '17%',
+<<<<<<< HEAD
         minWidth: '270px',
         maxWidth: '17%'
     },
@@ -109,6 +110,11 @@ const styles = {
         padding: "0 50px",
         marginTop: "0 50px",
 }
+=======
+        minWidth: '300px',
+        maxWidth: '17%',
+    }
+>>>>>>> f9be9aef9e0c071de4538e6c781f9cefcc47f2a4
 };
 
 class Login extends  Component {

@@ -159,6 +159,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class
 
     ],
 
@@ -208,6 +209,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+<<<<<<< HEAD
+=======
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class
+>>>>>>> f9be9aef9e0c071de4538e6c781f9cefcc47f2a4
     ],
 
 ];

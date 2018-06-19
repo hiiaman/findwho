@@ -18,4 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('login', 'Auth\LoginController@generalToken');
+<<<<<<< HEAD
 Route::resource('users','User\UserController');
+=======
+Route::get('/redirect/{social}', 'SocialAuthController@redirect');
+Route::get('/callback/{social}', 'SocialAuthController@callback');
+
+Route::get('');
+>>>>>>> f9be9aef9e0c071de4538e6c781f9cefcc47f2a4
