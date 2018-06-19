@@ -19,25 +19,96 @@ const styles = {
         left: '230px',
         top: '38px',
         height: '10px',
-        width: '10px',
+        width: '10px'
     },
     iConUser: {
         position: 'absolute',
         right: 0,
         left: '230px',
-        top: '38px',
+        top: '38px'
     },
     contentInput: {
-        width: '220px',
+        width: '220px'
     },
     contentAccount: {
-        width: '220px',
+        width: '220px'
     },
     widthLogin : {
         width: '17%',
         minWidth: '270px',
-        maxWidth: '17%',
-    }
+        maxWidth: '17%'
+    },
+
+    btn : {
+        width: "200px",
+        padding: "12px",
+        border: "none",
+        borderRadius: "4px",
+        margin: "5px 0",
+        opacity: "0.85",
+        display: "inline-block",
+        fontSize: "17px",
+        lineHeight: "20px",
+        textDecoration: "none",
+        hover: {
+            opacity: "1",
+        },
+    },
+    fb :{
+        textAlign: "left",
+        width: "100%",
+        padding: "12px",
+        border: "none",
+        borderRadius: "4px",
+        margin: "5px 0",
+        opacity: "0.85",
+        display: "inline-block",
+        fontSize: "17px",
+        lineHeight: "20px",
+        textDecoration: "none",
+        backgroundColor: "#3B5998",
+        noWrap: "true",
+        color: "white"
+    },
+
+    twitter :{
+        textAlign: "left",
+        width: "100%",
+        padding: "12px",
+        border: "none",
+        borderRadius: "4px",
+        margin: "5px 0",
+        opacity: "0.85",
+        display: "inline-block",
+        fontSize: "17px",
+        lineHeight: "20px",
+        textDecoration: "none",
+        backgroundColor: "#55ACEE",
+        color: "white"
+    },
+
+    google : {
+        textAlign: "left",
+        width: "100%",
+        padding: "12px",
+        border: "none",
+        borderRadius: "4px",
+        margin: "5px 0",
+        opacity: "0.85",
+        display: "inline-block",
+        fontSize: "17px",
+        lineHeight: "20px",
+        textDecoration: "none",
+        backgroundColor: "#dd4b39",
+        color: "white"
+    },
+
+    col : {
+        width: "50%",
+        margin: "auto",
+        padding: "0 50px",
+        marginTop: "0 50px",
+}
 };
 
 class Login extends  Component {
@@ -108,7 +179,7 @@ class Login extends  Component {
                 primary={true}
             />,
             <FlatButton
-                label="Submit"
+                label="Login"
                 primary={true}
                 onClick={this.handleSubmit}
             />,
@@ -155,6 +226,17 @@ class Login extends  Component {
                                 onChange={this.handleChange}
                                 name="password"
                             />
+                        </div>
+                        <div className={"col"}>
+                            <a href="#"  style={styles.fb}>
+                                <i className={"fa fa-facebook fa-fw"}></i> Login with Facebook
+                            </a>
+                            <a href="#" className={"btn"} style={styles.twitter}>
+                                <i className={"fa fa-twitter fa-fw"}></i> Login with Twitter
+                            </a>
+                            <a href="#" className={"btn"} style={styles.google}>
+                                <i className={"fa fa-google fa-fw"}></i> Login with Google+
+                            </a>
                         </div>
                     </Dialog>
                 </div>

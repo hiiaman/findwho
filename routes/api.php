@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('login', 'Auth\LoginController@generalToken');
+Route::resource('users','User\UserController');
